@@ -1,0 +1,25 @@
+# Scrapping requirements
+requests
+python-dotenv
+# selenium
+
+# Vector DB requirements (some of them are not used)
+langchain
+transformers
+sentence-transformers
+torch
+langchain-community
+unstructured==0.14.9
+unstructured[local-inference]==0.14.9
+pinecone-client
+langchain-openai
+langchain-huggingface
+poppler-utils
+openai
+python-dotenv
+flask
+flask-cors
+xmltodict
+langchain-openai
+aiofiles
+langgraph
