@@ -76,10 +76,14 @@ def main():
   tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
   model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 
+  all_top_places['json'] = all_top_places.apply(lambda x: x.to_json(), axis=1)
+
   for idx, row in all_top_places.iterrows():
     # Embed the description of the place
-    text = f"{row['name']} - {row['category']} - {row['address']} - {row['url']} - {row['rating']} - Top review count: {row['review_count']}"
-    embedding = model.encode(text).tolist()
+    # text = f"{row['name']} - {row['category']} - {row['address']} - {row['url']} - {row['rating']} - Top review count: {row['review_count']}"
+    # embedding = model.encoder(text).tolist()
+    
+    embedding = get_azure_openai_embedding(row['json'])
 
     metadata = {
       'name': row['name'],
