@@ -65,12 +65,13 @@ def embed_text(text, tokenizer, model):
 def main():
   # Load the data from the CSV files
   # Inspo: https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python-new%2Ccommand-line&pivots=programming-language-python
-  data_files = glob.glob("top_places_data/*.csv")
-  all_top_places = pd.concat(
-    [pd.read_csv(data_files[0])] +
-    [pd.read_csv(file, header=None) for file in data_files[1:]],
-    ignore_index=True
-  )
+  # data_files = glob.glob("top_places_data/*.csv")
+  # all_top_places = pd.concat(
+  #   [pd.read_csv(data_files[0])] +
+  #   [pd.read_csv(file, header=None) for file in data_files[1:]],
+  #   ignore_index=True
+  # )
+  all_top_places = pd.read_csv('top_places_data/yelp_top_places_ny.csv')
 
   #### EMBEDDING AND STORAGE INTO VECTOR DATABASE CODE
   tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
@@ -95,7 +96,7 @@ def main():
     }
 
     # Store the embedding in Pinecone
-    index_name = "top-places" # Change?
+    index_name = "trip-planner-context" # Change?
     if index_name not in [idx.name for idx in pc.list_indexes().indexes]:
       pc.create_index(
         name=index_name,
